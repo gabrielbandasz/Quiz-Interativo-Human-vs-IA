@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Humano vs IA — Você Consegue Distinguir?</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ═══════════════════════════ PARTÍCULAS DE FUNDO ═══════════════════════════ -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ═══════════════════════════ TELA INICIAL ═══════════════════════════ -->
+  <section id="screen-intro" class="screen active">
+    <div class="intro-content">
+      <div class="badge">Feira Multidisciplinar 2025</div>
+      <h1 class="intro-title">
+        <span class="line">Humano</span>
+        <span class="line vs">vs</span>
+        <span class="line ia-glow">IA</span>
+      </h1>
+      <p class="intro-subtitle">Você consegue distinguir?</p>
+      <p class="intro-desc">
+        Vivemos na era do excesso de informação. A inteligência artificial produz textos, imagens
+        e vídeos indistinguíveis dos criados por humanos.<br/>
+        <strong>Você ainda consegue identificar o que é real?</strong>
+      </p>
+      <div class="intro-stats">
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Desafios</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Textos</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Imagens</span></div>
+      </div>
+      <button class="btn-primary" id="btn-start">
+        <span>Começar o Desafio</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p class="intro-theme">
+        <em>"Comunicação na era do excesso de informação: você consegue identificar o que é real?"</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ TELA DO QUIZ ═══════════════════════════ -->
+  <section id="screen-quiz" class="screen">
+    <div class="quiz-wrapper">
+
+      <!-- Cabeçalho do quiz -->
+      <header class="quiz-header">
+        <div class="quiz-meta">
+          <span id="q-type-badge" class="type-badge">TEXTO</span>
+          <span id="q-counter" class="q-counter">1 / 6</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+      </header>
+
+      <!-- Conteúdo da pergunta -->
+      <div class="question-card" id="question-card">
+
+        <!-- Label da pergunta -->
+        <p class="question-label" id="q-label">Analise o conteúdo abaixo:</p>
+
+        <!-- Área de conteúdo (texto OU imagem) -->
+        <div class="content-area" id="content-area">
+          <!-- Preenchido via JS -->
+        </div>
+
+        <!-- Dica sutil -->
+        <p class="hint-text" id="hint-text"></p>
+
+        <!-- Botões de resposta -->
+        <div class="answer-buttons" id="answer-buttons">
+          <button class="btn-answer btn-human" data-answer="human">
+            <span class="btn-icon">👤</span>
+            <span>Foi feito por <strong>HUMANO</strong></span>
+          </button>
+          <button class="btn-answer btn-ai" data-answer="ai">
+            <span class="btn-icon">🤖</span>
+            <span>Foi feito por <strong>IA</strong></span>
+          </button>
+        </div>
+
+        <!-- Feedback (oculto inicialmente) -->
+        <div class="feedback-box" id="feedback-box">
+          <div class="feedback-icon" id="feedback-icon"></div>
+          <div class="feedback-text">
+            <p class="feedback-verdict" id="feedback-verdict"></p>
+            <p class="feedback-explain" id="feedback-explain"></p>
+          </div>
+          <button class="btn-next" id="btn-next">
+            <span id="btn-next-label">Próxima Pergunta</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ TELA DE RESULTADO ═══════════════════════════ -->
+  <section id="screen-result" class="screen">
+    <div class="result-wrapper">
+      <div class="result-score-ring">
+        <svg class="ring-svg" viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="50"/>
+          <circle class="ring-progress" id="ring-progress" cx="60" cy="60" r="50"/>
+        </svg>
+        <div class="ring-score" id="ring-score">0/6</div>
+      </div>
+
+      <h2 class="result-title" id="result-title">Resultado</h2>
+      <p class="result-msg" id="result-msg"></p>
+
+      <div class="result-breakdown" id="result-breakdown">
+        <!-- Preenchido via JS -->
+      </div>
+
+      <div class="reflection-box">
+        <p class="reflection-quote">
+          "A comunicação nunca foi tão rápida, mas talvez nunca tenha sido<br/>
+          tão difícil saber no que <em>acreditar</em>."
+        </p>
+      </div>
+
+      <button class="btn-primary" id="btn-restart">
+        <span>Jogar Novamente</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 013.51 15"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
