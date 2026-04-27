@@ -71,7 +71,7 @@ No topo do `style.css`, dentro de `:root`, mude as variáveis:
 --bg-0: #0b0d10;     /* cor de fundo */
 ```
 ---
-## Tema da feira
+## Tema do nosso projeto
 > *Em um mundo onde máquinas escrevem, pintam e fotografam, **o que ainda nos define como humanos?***
 A proposta é provocar a discussão: hoje a fronteira entre criação humana e máquina está cada vez mais fina — e saber identificar isso virou uma habilidade essencial.
 ---
